@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  background-color: tomato;
+  height: 10%;
+}
+
+header img {
+  height: 100%;
+}
+
+header ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style-type: none;
+  font-family: fantasy;
+}
+
+header ul li {
+  margin: 8px;
+}

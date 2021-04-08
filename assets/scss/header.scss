@@ -1,0 +1,21 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    background-color: tomato;
+    height:10%;
+    img{
+        height:100%;
+    }
+    ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        list-style-type: none;
+        font-family: fantasy;
+        li{
+            margin:8px;
+        }
+    }
+}
