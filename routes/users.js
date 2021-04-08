@@ -48,12 +48,16 @@ router.get("/profile",passport.checkAuthentication, function(req, res){
 //use passport as a middleware to authenticate
 router.post("/signIn/create-session" ,passport.authenticate('local',
 {failureRedirect:'/users/signIn'}) ,function(req,res){
-    return res.redirect("/users/profile");
+    return res.redirect("/");
 });
 
 router.get("/signOut" , function(req,res){
     req.logOut();
     res.redirect("/");
+})
+
+router.post("/getPost" , function(req,res){
+    console.log(req.body);
 })
 
 module.exports = router;
