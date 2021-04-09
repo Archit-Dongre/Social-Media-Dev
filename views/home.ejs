@@ -4,12 +4,20 @@
     <h4>
         Posts
     </h4>
-    <form action="/users/getPost" id='new-post-form' method="POST">
+    <form action="/users/posts/createPost" id='new-post-form' method="POST">
         <textarea name='content' cols="30" rows="3" placeholder="Type something..."></textarea>
         <br>
         <input type="submit" value='POST'>
     </form>
-
+    <br>
+    <h4>Your Posts</h4>
+    <% for (post of posts){%>
+    <div style='border:2px dashed white'>
+    <p> <%= post.content %> </p> 
+    <small ><%= user.name %></small>           
+    </div>
+    
+    <%}%>
 
 </section>
 
