@@ -1,5 +1,6 @@
 <p>You have come to the home page.</p>
 
+<% if(locals.user){%>
 <section id='feed-posts'>
     <h4>
         Posts
@@ -9,15 +10,17 @@
         <br>
         <input type="submit" value='POST'>
     </form>
+</section>
+<%}%>
     <br>
     <h4>Your Posts</h4>
     <% for (post of posts){%>
     <div style='border:2px dashed white'>
     <p> <%= post.content %> </p> 
-    <small ><%= user.name %></small>           
+    <small ><%= post.user.name %></small>           
     </div>
     
     <%}%>
 
-</section>
+
 
