@@ -6,7 +6,7 @@
         Posts
     </h4>
     <form action="/users/posts/createPost" id='new-post-form' method="POST">
-        <textarea name='content' cols="30" rows="3" placeholder="Type something..."></textarea>
+        <textarea name='content' cols="30" rows="3" placeholder="Type something..." required></textarea>
         <br>
         <input type="submit" value='POST'>
     </form>
@@ -14,13 +14,34 @@
 <%}%>
     <br>
     <h4>Your Posts</h4>
+
     <% for (post of posts){%>
+    <div id="post-container">
     <div style='border:2px dashed white'>
     <p> <%= post.content %> </p> 
     <small ><%= post.user.name %></small>           
     </div>
-    
+    <br>
+    <div id='comment-container'>
+        <h4>Comment Section</h4>
+    <% for (comment of post.commentIds){%>
+        <div style="position:relative;border:2px solid black">
+            <%=comment.content%>
+            <br>
+            <small style='position:relative;margin-left:93%;color:yellow'><%=comment.user.name%></small>
+        </div>
     <%}%>
+    </div>
+    
+    <form action="/users/comment/createComment" id='new-comment-form' method="POST">
+        <input type="hidden" name='post_id' value="<%= post._id%>">
+        <textarea name='content' cols="20" rows="3" placeholder="Type comment..." required></textarea>
+        <br>
+        <input type="submit" value='Comment'>
+    </form>
+</div>
+    <%}%>
+   
 
 
 

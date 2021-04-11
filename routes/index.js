@@ -1,4 +1,5 @@
 const express = require("express");
+const { populate } = require("../models/post");
 const router = express.Router();
 const Post = require("../models/post");
 //const User = require("../models/user");
@@ -11,7 +12,15 @@ router.get("/" , function(req,res){
     // });
 
     //using populate function to show name of the person who is posting
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate({path:'user'})
+    .populate(
+        {
+            path:'commentIds',
+            populate:{
+                path:'user'
+            }
+        }).exec(function(err,posts){
         res.render("home" , {title:"Home page" , posts : posts});
     });
 })

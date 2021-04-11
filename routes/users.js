@@ -21,4 +21,6 @@ router.get("/signOut" , usersController.signOut)
 
 router.use("/posts" , require("./posts"));
 
+router.use("/comment" , require("./comments"));
+
 module.exports = router;
