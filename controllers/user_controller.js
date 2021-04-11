@@ -1,3 +1,4 @@
+const User = require("../models/user");
 module.exports.signUp = function(req,res){
     if(req.isAuthenticated()){
         return res.redirect("/users/profile");
