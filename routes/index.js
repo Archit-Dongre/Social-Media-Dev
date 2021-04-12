@@ -2,7 +2,7 @@ const express = require("express");
 const { populate } = require("../models/post");
 const router = express.Router();
 const Post = require("../models/post");
-//const User = require("../models/user");
+const User = require("../models/user");
 
 router.get("/" , function(req,res){
     // Post.find({},function(err,post){
@@ -21,7 +21,9 @@ router.get("/" , function(req,res){
                 path:'user'
             }
         }).exec(function(err,posts){
-        res.render("home" , {title:"Home page" , posts : posts});
+        User.find({},function(err,user){
+           return res.render("home" , {title:"Home page" , posts : posts,all_users:user});
+        });
     });
 })
 

@@ -1,0 +1,10 @@
+<div style="position:relative;border:2px solid black">
+    <%=comment.content%>
+    <br>
+   <% if(locals.user && ((locals.user.id == comment.user.id)||(locals.user.id==post.user.id)) ){%>
+    <small>
+        <a href='/users/comment/destroy/<%=comment.id%>'>Delete Comment</a>
+    </small>
+<%}%>
+    <small style='position:relative;margin-left:93%;color:yellow'><%=comment.user.name%></small>
+</div>

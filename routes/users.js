@@ -11,7 +11,7 @@ router.get("/signIn" , usersController.signIn);
 
 router.post("/signUp/create" , usersController.create);
 
-router.get("/profile",passport.checkAuthentication, usersController.profile);
+router.get("/profile/:id",passport.checkAuthentication, usersController.profile);
 
 //use passport as a middleware to authenticate
 router.post("/signIn/create-session" ,passport.authenticate('local',

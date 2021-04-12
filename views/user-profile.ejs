@@ -1,8 +1,20 @@
 <link rel="stylesheet" href="/css/user.css">
 <body>
 
-<p>You have come to the profile page of the user that can only be seen after signing in to the website
+<p>You have come to the profile page of <%= profile_user.name%> that can only be seen after signing in to the website
 KUDOS!!
 </p>
-
+<%if(locals.user.id == profile_user.id){%>
+<h4>Hey , displayed below are your deets mister!;)</h4>
+<ul>
+    <li><%= profile_user.name%></li>
+    <li><%= profile_user.email%></li>
+</ul>
+<%}else{%>
+<h4>Hey , displayed below are <%=profile_user.name%> 's deets mister!;)</h4>
+<ul>
+    <li><%=profile_user.name%></li>
+    <li><%= profile_user.email%></li>
+</ul>   
+<%}%>
 </body>

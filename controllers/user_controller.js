@@ -39,7 +39,14 @@ module.exports.create = function(req,res){
 
 module.exports.profile =  function(req, res){
     //To be implemented with help of passport library
-    res.render('user-profile',{title:"User profile"});
+    User.findById(req.params.id,function(err,user){
+        if(err){
+            console.log("Error in displaying user profile");
+            return;
+        }
+       return res.render('user-profile',{title:"User profile",profile_user:user});
+    }); 
+    
 };
 
 //use passport as a middleware to authenticate
