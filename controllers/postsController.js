@@ -1,29 +1,34 @@
 const Post = require('../models/post');
 const Comment = require("../models/comment");
-module.exports.createPost = function(req,res){
-    console.log(req.user);
-    Post.create({
-        content:req.body.content,
-        user: req.user._id,
-        commentIds : []
-    },function(err,post){
-        if(err){console.log("Error in creating a post");return;}
+module.exports.createPost =  async function(req,res){
+    try{
+        await Post.create({
+            content:req.body.content,
+            user: req.user._id,
+            commentIds : []
+            });
         return res.redirect("back");
-    })
+    }catch(err){
+      console.log("Error:",err);
+      return ; 
+    }
 };
 
-module.exports.destroy = function(req,res){
-    Post.findById(req.query.id,function(err,post){
-        //.id means converting objectId(_id) to string
+module.exports.destroy = async function(req,res){
+    try{
+      let post =  await Post.findById(req.query.id);
         if(post.user == req.user.id){
-            Comment.deleteMany({post:post.id},function(err){
-                if(err){console.log("Error deleting comments of post to be deleted");return;}
-            });
-            post.remove();
-            return res.redirect("back");
+           await Comment.deleteMany({post:post.id});
+           await post.remove();
+           return res.redirect("back");
+        
         }else{
-            console.log('You cant delete this post , you havent written it');
+            console.log("You cant delete this is not your post");
             return res.redirect("back");
         }
-    })
+    }catch(err){
+        console.log("Error:",err);
+        return;
+    }
+    
 }
