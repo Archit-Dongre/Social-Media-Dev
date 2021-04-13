@@ -1,11 +1,13 @@
+<link rel='stylesheet' href='/css/home.css'>
 <p>You have come to the home page.</p>
-
+<div id='home-container'>
+    <section id='feed-posts'>
 <% if(locals.user){%>
     <%-include('_post_create_form')-%>
 <%}%>
     <br>
     <h4>Your Posts</h4>
-    <section>
+    
     <% for (post of posts){%>
         <%-include('_posts')-%>
     <%}%>
@@ -21,6 +23,6 @@
         </ul>
     <%}%>
     </section>
-
+</div>
 
 

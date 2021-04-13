@@ -11,6 +11,8 @@ router.get("/signIn" , usersController.signIn);
 
 router.post("/signUp/create" , usersController.create);
 
+router.post("/update/:id" ,passport.checkAuthentication,usersController.update);
+
 router.get("/profile/:id",passport.checkAuthentication, usersController.profile);
 
 //use passport as a middleware to authenticate
@@ -22,5 +24,7 @@ router.get("/signOut" , usersController.signOut)
 router.use("/posts" , require("./posts"));
 
 router.use("/comment" , require("./comments"));
+
+
 
 module.exports = router;

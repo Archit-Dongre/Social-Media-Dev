@@ -59,3 +59,15 @@ module.exports.signOut = function(req,res){
     res.redirect("/");
 };
 
+module.exports.update = function(req,res){
+    //update take should only be possible for the user signed in 
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id ,{name:req.body.name,email:req.body.email},function(err){
+            if(err){console.log("failed to update deets of user");return;}   
+              
+            return res.redirect("/");
+        })
+    }else{
+        return res.status(401).send("Unauthorized IP has been noted");
+    }
+};

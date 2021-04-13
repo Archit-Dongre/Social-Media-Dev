@@ -9,6 +9,12 @@ KUDOS!!
 <ul>
     <li><%= profile_user.name%></li>
     <li><%= profile_user.email%></li>
+    <form action='/users/update/<%=profile_user.id%>' method="POST" id='update-user-profile'>
+        <h4>Change your details</h4>
+        <input type="text" name='name' placeholder="Your name.." value="<%=profile_user.name%>" required>
+        <input type='emial' name='email' placeholder="Your email.." value="<%=profile_user.email%>" required>
+        <input type='submit'>
+    </form>
 </ul>
 <%}else{%>
 <h4>Hey , displayed below are <%=profile_user.name%> 's deets mister!;)</h4>
