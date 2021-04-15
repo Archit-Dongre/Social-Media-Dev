@@ -4,7 +4,7 @@ const router = express.Router();
 const homeController = require("../controllers/homeController.js");
 const Post = require("../models/post");
 const User = require("../models/user");
-
+const flashMiddleware = require("../config/middleware");
 //router.get("/" , function(req,res){
     // Post.find({},function(err,post){
     //     User.findOne({id:post.user},function(err,user){

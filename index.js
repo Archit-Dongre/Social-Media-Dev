@@ -15,7 +15,18 @@ const passportLocal = require("./config/passport-local-strategy");
 const MongoStore = require('connect-mongo')(session);
 const sassMiddelware = require("node-sass-middleware");
 
-//use calls
+const flash = require("connect-flash");
+const flashMiddleware = require("./config/middleware");
+//set calls 
+
+//for layouts and partials to use <%-style%> and <%-script%> auto detect
+app.set('layout extractStyles' , true);
+app.set('layout extractScripts' , true);
+
+app.set("view engine" , "ejs");
+app.set("views" , "./views");
+
+//use calls 
 app.use(sassMiddelware({
     src : "./assets/scss",
     dest:"./assets/css",
@@ -31,13 +42,6 @@ app.use(cookieParser());
 
 //for reading the assets folder for css and js
 app.use(express.static("assets"));
-
-//for layouts and partials to use <%-style%> and <%-script%> auto detect
-app.set('layout extractStyles' , true);
-app.set('layout extractScripts' , true);
-
-app.set("view engine" , "ejs");
-app.set("views" , "./views");
 
 //Mongo store is used to store the session cookie in the db
 app.use(session({
@@ -64,6 +68,11 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+//using flash 
+ 
+app.use(flash());
+app.use(flashMiddleware.setFlash);
+//setting up of routes
 app.use("/" , require("./routes/index.js"));
 
 app.use("/" , require("./routes"));
