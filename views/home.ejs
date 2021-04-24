@@ -6,11 +6,15 @@
     <%-include('_post_create_form')-%>
 <%}%>
     <br>
-    <h4>Your Posts</h4>
     
-    <% for (post of posts){%>
-        <%-include('_posts')-%>
-    <%}%>
+    <h4>Your Posts</h4>
+    <div id='post-display'>
+    <ul>
+        <% for (post of posts){%>
+            <%-include('_posts')-%>
+        <%}%>
+    </ul>
+    </div>
     </section>
 
     <section id = 'user-friends'>

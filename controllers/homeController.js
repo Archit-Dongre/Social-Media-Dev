@@ -4,7 +4,9 @@ const User = require("../models/user");
 module.exports.home = async function(req,res){
     //nested populate 
     try{
-        let posts = await Post.find({}).populate({path:'user'})
+        let posts = await Post.find({})
+                      .sort("-createdAt")
+                      .populate({path:'user'})
                       .populate({path:"commentIds" , populate:{
                          path:'user'
                       }});
