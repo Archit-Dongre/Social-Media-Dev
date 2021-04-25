@@ -107,9 +107,7 @@
                         let x = document.querySelectorAll(".delete-comment-button");
                         for(a of x){
                          deleteComment(a);
-                        }
-                       
-                        
+                        }    
                     },error:function(error){
                         console.log(error.responseText);
                     }

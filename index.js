@@ -43,6 +43,10 @@ app.use(cookieParser());
 //for reading the assets folder for css and js
 app.use(express.static("assets"));
 
+// using static for making the avatar folder availaible to browser
+
+app.use('/uploads' , express.static(__dirname+'/uploads'));
+
 //Mongo store is used to store the session cookie in the db
 app.use(session({
     name: "practiceAuth",
@@ -72,6 +76,8 @@ app.use(passport.setAuthenticatedUser);
  
 app.use(flash());
 app.use(flashMiddleware.setFlash);
+
+
 //setting up of routes
 app.use("/" , require("./routes/index.js"));
 

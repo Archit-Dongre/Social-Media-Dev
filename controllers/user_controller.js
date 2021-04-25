@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const fs = require('fs');
+const path = require('path');
 module.exports.signUp = function(req,res){
     if(req.isAuthenticated()){
         return res.redirect("/users/profile");
@@ -64,14 +66,36 @@ module.exports.signOut = function(req,res){
     return  res.redirect("/");
 };
 
-module.exports.update = function(req,res){
+module.exports.update = async function(req,res){
     //update take should only be possible for the user signed in 
+    // if(req.user.id == req.params.id){
+    //     User.findByIdAndUpdate(req.params.id ,{name:req.body.name,email:req.body.email},function(err){
+    //         if(err){console.log("failed to update deets of user");return;}   
+    //         req.flash("success" , "Successfully updated details.")
+    //         return res.redirect("/");
+    //     })
+
+    // Implementing async await since it could get complicated
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id ,{name:req.body.name,email:req.body.email},function(err){
-            if(err){console.log("failed to update deets of user");return;}   
-            req.flash("success" , "Successfully updated details.")
-            return res.redirect("/");
-        })
+        try{
+            let user = await User.findById(req.params.id);
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if(req.file){
+                if(user.avatar){
+                    console.log("lets see if fs works!");
+                    let current_path = path.join(__dirname,'..',user.avatar);
+                    fs.unlinkSync(current_path);
+                    console.log(current_path);   
+                }
+                user.avatar = User.avatarPath + "/" + req.file.filename;
+            }
+            user.save();
+            return res.redirect('back');
+       }catch(err){
+            req.flash("error" , 'This is an error');
+            res.redirect('back');
+        }
     }else{
         req.flash("error","You are unauthorized");
         return res.status(401).send("Unauthorized IP has been noted");

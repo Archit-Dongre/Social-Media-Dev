@@ -11,7 +11,7 @@ router.get("/signIn" , usersController.signIn);
 
 router.post("/signUp/create" , usersController.create);
 
-router.post("/update/:id" ,passport.checkAuthentication,usersController.update);
+router.post("/update/:id" ,passport.checkAuthentication,User.uploadAvatar,usersController.update);
 
 router.get("/profile/:id",passport.checkAuthentication, usersController.profile);
 

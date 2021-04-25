@@ -4,15 +4,18 @@
 <p>You have come to the profile page of <%= profile_user.name%> that can only be seen after signing in to the website
 KUDOS!!
 </p>
+<br>
+<img src ='<%= profile_user.avatar%>' alt='<%= profile_user.name%>' width='100'>
 <%if(locals.user.id == profile_user.id){%>
 <h4>Hey , displayed below are your deets mister!;)</h4>
 <ul>
     <li><%= profile_user.name%></li>
     <li><%= profile_user.email%></li>
-    <form action='/users/update/<%=profile_user.id%>' method="POST" id='update-user-profile'>
+    <form action='/users/update/<%=profile_user.id%>' method="POST" id='update-user-profile' enctype="multipart/form-data">
         <h4>Change your details</h4>
         <input type="text" name='name' placeholder="Your name.." value="<%=profile_user.name%>" required>
         <input type='emial' name='email' placeholder="Your email.." value="<%=profile_user.email%>" required>
+        <input type='file' name='avatar' placeholder="Profile Picture....">
         <input type='submit'>
     </form>
 </ul>
