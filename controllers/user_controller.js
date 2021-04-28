@@ -83,10 +83,11 @@ module.exports.update = async function(req,res){
             user.email = req.body.email;
             if(req.file){
                 if(user.avatar){
-                    console.log("lets see if fs works!");
                     let current_path = path.join(__dirname,'..',user.avatar);
-                    fs.unlinkSync(current_path);
-                    console.log(current_path);   
+                    if(fs.existsSync(current_path)){
+                        fs.unlinkSync(current_path);
+                        console.log(current_path);
+                    }   
                 }
                 user.avatar = User.avatarPath + "/" + req.file.filename;
             }
