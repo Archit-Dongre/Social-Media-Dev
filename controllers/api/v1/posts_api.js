@@ -1,5 +1,6 @@
  const Post = require('../../../models/post');
  const Comment = require("../../../models/comment");
+const { SchemaType, Types } = require('mongoose');
  module.exports.index = async function(req,res){
  let posts = await Post.find({})
                     .sort("-createdAt")
@@ -20,20 +21,19 @@
  module.exports.destroy = async function(req,res){
     try{
       let post =  await Post.findById(req.params.id);
-        //if(post.user == req.user.id){
+        if(post.user == req.user.id){
            await Comment.deleteMany({post:post.id});
            await post.remove();
            
           return res.json(200,{
               message:'Post and associated comments deleted successfully'
           });
-        //    req.flash("success","Successfully Deleted Posts and all Comments");
-        //    return res.redirect("back");
-        // }else{
-        //     console.log("You cant delete this is not your post");
-        //     req.flash("error","You are not authorized to delete this post");
-        //     return res.redirect("back");
-        // }
+          
+        }else{
+            return res.json(401,{
+                message:'You are unauthorized to delete this'
+            });
+        }
     }catch(err){
         return res.json(500,{
             message:'Internal Server Error'
