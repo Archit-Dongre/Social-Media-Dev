@@ -18,6 +18,9 @@ const sassMiddelware = require("node-sass-middleware");
 // for JWT authentication 
 const passportJwt = require("./config/passport-jwt-startegy");
 
+//for google auth
+const passportGoogle = require("./config/passport-google-ouath@2.0.0");
+
 const flash = require("connect-flash");
 const flashMiddleware = require("./config/middleware");
 //set calls 

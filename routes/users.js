@@ -25,6 +25,8 @@ router.use("/posts" , require("./posts"));
 
 router.use("/comment" , require("./comments"));
 
+router.get('/auth/google' , passport.authenticate('google',{scope:['profile','email']}));
 
+router.get("/auth/google/callback" , passport.authenticate('google' , {failureRedirect:'/users/sign-in'}),usersController.createSession);
 
 module.exports = router;

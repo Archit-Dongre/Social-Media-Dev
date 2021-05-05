@@ -1,5 +1,5 @@
- const Post = require('../../../models/post');
- const Comment = require("../../../models/comment");
+const Post = require('../../../models/post');
+const Comment = require("../../../models/comment");
 const { SchemaType, Types } = require('mongoose');
  module.exports.index = async function(req,res){
  let posts = await Post.find({})
