@@ -3,7 +3,8 @@ const app = express();
 const router = express.Router();
 const port = 200;
 const db = require("./config/mongoose");
-
+const dotenv = require("dotenv");
+dotenv.config();
 // for layouts and partials
 const expressLayouts = require("express-ejs-layouts");
 
@@ -87,7 +88,7 @@ app.use(flashMiddleware.setFlash);
 //setting up of routes
 app.use("/" , require("./routes/index.js"));
 
-app.use("/" , require("./routes"));
+//app.use("/" , require("./routes"));
 
 app.listen(port , function(err){
     if(err){
