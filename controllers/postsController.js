@@ -2,6 +2,9 @@ const Post = require('../models/post')
 const Comment = require("../models/comment");
 module.exports.createPost =  async function(req,res){
     try{
+        if(!req.user){
+           return res.redirect("/user/sign-in");
+        }
         
         console.log(req.body);
         let post = await Post.create({

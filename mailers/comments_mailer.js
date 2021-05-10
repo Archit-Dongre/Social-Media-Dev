@@ -3,7 +3,7 @@ const nodemailer = require("../config/nodemailer");
 module.exports.newComment = (comment)=>{
     console.log("inside new comment mailer");
     nodemailer.transporter.sendMail({
-        from:"practiceAuth@notif.com",
+        from:'dongrearchit@gmail.com',
         to: 'dongrearchit@gmail.com',
         subject : "New comment published",
         html: nodemailer.renderTemplate({comment:comment},'/comments/new_comment_mail.ejs')

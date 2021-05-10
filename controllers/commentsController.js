@@ -1,6 +1,8 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 const commentMailer = require("../mailers/comments_mailer");
+const commentEmailWorker = require("../workers/comment_email_worker");
+const queue = require('../config/kue');
 module.exports.createComment = async function(req,res){
     try{
         console.log(req.body);
@@ -14,11 +16,16 @@ module.exports.createComment = async function(req,res){
             });
             post.commentIds.push(comment._id);
             post.save();
-            Comment.findById(comment.id).populate({path:'user'}).exec(function(err,comment){
-                
+            
+            Comment.findById(comment.id).populate({path:'user' ,select:{'name':1 , 'email':1,'_id':0}}).exec(async function(err,comment){
+                let job = await queue.create('commentEmails',comment).save(function(err){
+                    if(err){console.log('Error in sending job to queue');return;}
+                    console.log('job enqueued',job.id);
+                })
                 if(req.xhr){
                     console.log('reached here')
-                    commentMailer.newComment(comment);
+                    //commentMailer.newComment(comment);
+                    queue
                     return res.status(200).json({
                         data:{
                             content:comment.content,
@@ -48,7 +55,7 @@ module.exports.destroy = async function(req,res){
         if(comment.user == req.user.id){
             let post_id_of_comment = comment.post;
             comment.remove();
-            let post = await Post.findByIdAndUpdate(post_id_of_comment,{$pull:{commentIds: comment.id}});
+            let post = await Post.findOneAndUpdate({id:post_id_of_comment},{$pull:{commentIds: comment.id}});
             if(req.xhr){
                 return res.status(200).json({
                     data:{
