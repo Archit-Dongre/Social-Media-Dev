@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 const User = require("../models/user");
-
+const Likes = require("../models/likes");
 module.exports.home = async function(req,res){
     //nested populate 
     try{

@@ -29,4 +29,15 @@ router.get('/auth/google' , passport.authenticate('google',{scope:['profile','em
 
 router.get("/auth/google/callback" , passport.authenticate('google' , {failureRedirect:'/users/sign-in'}),usersController.createSession);
 
+router.get("/forgot-password" , usersController.enterForgotPasswordMail);
+
+router.post("/forgot-password-send-mail" , usersController.sendForgotPasswordMail);
+
+router.get("/reset-password" , usersController.resetPassword);
+
+router.post("/reset-password-confirm" , usersController.resetPasswordConfirm);
+
+router.post("/like-post" , usersController.likePost);
+
+
 module.exports = router;

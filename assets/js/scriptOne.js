@@ -13,9 +13,8 @@
                     $("#post-display>ul").prepend(newPost);
                     notySuccess("Successfully created Post")
                     let x = document.querySelectorAll(".delete-post-button");
-                    for(a of x){
-                        deletePost(a);
-                    }
+                    likeFunctionality();
+                    deletePost();
                 },error:function(error){
                     console.log(error.responseText);
                 }
@@ -32,6 +31,10 @@
         </small>
         <p>${post.content}</p> 
         <small >${post.name}</small>           
+        </div>
+        <br>
+        <div id='like-post-button-container'>
+        <span id='post-like-display-${post.id}'> 0 Likes </span> &nbsp <form><button type="button"  value='${post.id}' class='like-post-button'>Like</button></form> 
         </div>
         <br>
         <h4>Comment Section</h4>
@@ -52,20 +55,29 @@
 
     //method to delete a post from DOM
 
-    let deletePost = function(deleteLink){
-        $(deleteLink).click(function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url:$(deleteLink).prop('href'),
-                success: function(data){
-                    $(`#post-${data.data.post_id}`).remove();
-                    notySuccess("Successfuly deleted post and comments")
-                },error:function(error){
-                    console.log(error.responseText);
-                }
-              });
-        })
+    let deletePost = function(){
+        let x = document.querySelectorAll(".delete-post-button");
+        for(a of x){
+            var events = $._data(a, "events");
+            if(events != null){
+                console.log($._data(a, "events").click.length);
+                continue;
+            }else{
+                $(a).click(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        type: "GET",
+                        url:$(this).prop('href'),
+                        success: function(data){
+                            $(`#post-${data.data.post_id}`).remove();
+                            notySuccess("Successfuly deleted post and comments")
+                        },error:function(error){
+                            console.log(error.responseText);
+                        }
+                    });
+                })
+            }
+        }
     }
 
     let notySuccess = function(text){
@@ -149,10 +161,43 @@
             })
         })
     }
+    let likeFunctionality = function(){
+        let value = 0;
+        //myVar = !myVar;
+        let allPostLikeButtons = document.querySelectorAll(".like-post-button");
+        console.log(allPostLikeButtons.length , "Length of for loop work");
+        for(a of allPostLikeButtons){
+                var events = $._data(a, "events");
+                if(events != null){
+                    console.log($._data(a, "events").click.length);
+                    continue;
+                }else{
+                $( a ).click(function() {
+                    console.log(a);
+                    $.ajax({
+                        type:'POST',
+                        url:'/users/like-post',
+                        data:{"post_id":$(this).attr('value')},
+                        success:function(data){  
+                            console.log("LIKE WAS REGISTERED IN DATABASE");        
+                            let likeDisplay = document.querySelector('#post-like-display-'+data.data.post_id);
+                            console.log(likeDisplay);
+                            likeDisplay.innerText = data.data.likeCount + " Likes";
+                            notySuccess(data.data.message);
+                        },error:function(error){
+                            console.log(error.responseText);
+                        }
+                    })
+                })
+            }
+        }
+    }
+
 
     createPost();
     createComment();
-
+    likeFunctionality();
+    deletePost();
     
     
 }

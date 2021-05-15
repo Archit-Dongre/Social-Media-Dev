@@ -25,7 +25,7 @@ module.exports.createComment = async function(req,res){
                 if(req.xhr){
                     console.log('reached here')
                     //commentMailer.newComment(comment);
-                    queue
+                    
                     return res.status(200).json({
                         data:{
                             content:comment.content,

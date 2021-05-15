@@ -7,12 +7,19 @@ const commentSchema = new mongoose.Schema({
     },
     user:{
         type : mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required:true
     },
     post:{
         type : mongoose.Schema.Types.ObjectId,
         ref: "Post"
-    }
+    },
+    likes:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Likes'
+        }
+    ]
 },{
     timestamps : true
 });

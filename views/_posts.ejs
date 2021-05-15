@@ -10,6 +10,12 @@
     <small ><%= post.user.name %></small>           
     </div>
     <br>
+    <%if(locals.user){%>
+        <div id='like-post-button-container'>
+        <span id='post-like-display-<%=post.id%>'> <%=post.likes.length%> Likes </span> &nbsp <form><button type="button" value='<%=post.id%>' class='like-post-button'>Like</button></form> 
+        </div>
+    <%}%>
+    <br>
     <h4>Comment Section</h4>
     <div id='comment-container-<%=post.id%>'>
     <% for (comment of post.commentIds){%>

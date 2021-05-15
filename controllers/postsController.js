@@ -1,5 +1,6 @@
 const Post = require('../models/post')
 const Comment = require("../models/comment");
+const Likes = require('../models/likes');
 module.exports.createPost =  async function(req,res){
     try{
         if(!req.user){
@@ -10,7 +11,8 @@ module.exports.createPost =  async function(req,res){
         let post = await Post.create({
             content:req.body.content,
             user: req.user._id,
-            commentIds : []
+            commentIds : [],
+            likes:[]
             })
         if(req.xhr){
           Post.findById(post.id).populate({path:'user'}).exec(function(err,post){
@@ -36,6 +38,7 @@ module.exports.destroy = async function(req,res){
       let post =  await Post.findById(req.query.id);
         if(post.user == req.user.id){
            await Comment.deleteMany({post:post.id});
+           await Likes.deleteMany({parent:post._id});
            await post.remove();
            
            if(req.xhr){
