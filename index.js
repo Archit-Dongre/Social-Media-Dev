@@ -24,6 +24,18 @@ const passportGoogle = require("./config/passport-google-ouath@2.0.0");
 
 const flash = require("connect-flash");
 const flashMiddleware = require("./config/middleware");
+
+//get development environment wether production or development
+
+const env = require("./config/environment");
+
+//set up chat server to be used by socket io 
+const chatServer = require('http').Server(app);
+const chatSockets = require("./config/chat_socket").chatSockets(chatServer);
+chatServer.listen(500);
+console.log("Chat server is listening on port 500");
+
+
 //set calls 
 
 //for layouts and partials to use <%-style%> and <%-script%> auto detect
@@ -58,7 +70,7 @@ app.use('/uploads' , express.static(__dirname+'/uploads'));
 app.use(session({
     name: "practiceAuth",
     //TODO change secret before deployment in production
-    secret:"blahsomething",
+    secret:env.sessionCookieSecret,
     saveUninitialized:false,
     resave:false,
     cookie:{

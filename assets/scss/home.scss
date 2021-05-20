@@ -1,13 +1,19 @@
-#home-container{
-    display:flex;
-    #feed-posts{
-        width: 80%;
-        padding: 10px;
-    }
-    #user-friends{
-        width:20%;
-        padding:10px;
-        border:1px solid navy;
-        //height:100%;
-    }
-}
+#home-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #home-container #feed-posts {
+    width: 80%;
+    padding: 10px;
+  }
+  
+  #home-container #user-friends {
+    width: 20%;
+    padding: 0px;
+    border: 1px solid navy;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  

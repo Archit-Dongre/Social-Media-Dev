@@ -19,14 +19,26 @@
 
     <section id = 'user-friends'>
         <%if(locals.user){%>
+        <div>
         <h4>Friends</h4>
+        
         <ul>
             <% for (u of all_users){%>
                 <li><a href='/users/profile/<%=u.id%>'><%=u.name%></a></li>
             <%}%>
         </ul>
+        </div>
+    <%}%>
+    <%if(locals.user){%>
+        <%-include('_chat-box') %>
     <%}%>
     </section>
 </div>
 
-
+<script src = '/js/chatEngine.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js" integrity="sha512-eVL5Lb9al9FzgR63gDs1MxcDS2wFu3loYAgjIH0+Hg38tCS8Ag62dwKyH+wzDb+QauDpEZjXbMn11blw8cbTJQ==" crossorigin="anonymous"></script>
+<%if(locals.user){%>
+    <script>
+        new ChatEngine('chat-box','<%=locals.user.email%>')
+    </script>
+<%}%>
