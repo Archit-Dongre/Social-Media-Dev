@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const production_asset_path_helper = require("./config/view-helpers")(app);
 const router = express.Router();
-const port = 200;
+const port = 2000;
 const db = require("./config/mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -37,7 +37,7 @@ const logger = require("morgan");
 //set up chat server to be used by socket io 
 const chatServer = require('http').Server(app);
 const chatSockets = require("./config/chat_socket").chatSockets(chatServer);
-chatServer.listen(500);
+chatServer.listen(5000);
 console.log("Chat server is listening on port 500");
 
 
