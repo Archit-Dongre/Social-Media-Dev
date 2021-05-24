@@ -1,4 +1,4 @@
-<link rel='stylesheet' href='/css/home.css'>
+<link rel='stylesheet' href= <%=assetPath('css/home.css')%> >
 <p>You have come to the home page.</p>
 <div id='home-container'>
     <section id='feed-posts'>
@@ -35,7 +35,7 @@
     </section>
 </div>
 
-<script src = '/js/chatEngine.js'></script>
+<script src = <%= assetPath('js/chatEngine.js')%> ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js" integrity="sha512-eVL5Lb9al9FzgR63gDs1MxcDS2wFu3loYAgjIH0+Hg38tCS8Ag62dwKyH+wzDb+QauDpEZjXbMn11blw8cbTJQ==" crossorigin="anonymous"></script>
 <%if(locals.user){%>
     <script>

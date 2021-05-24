@@ -1,0 +1,14 @@
+body {
+  background-color: lightblue;
+  height: 80vh;
+}
+
+body #post-container {
+  border: 2px solid green;
+  margin: 15px;
+}
+
+body #comment-container {
+  font-family: cursive;
+  margin-bottom: 10px;
+}

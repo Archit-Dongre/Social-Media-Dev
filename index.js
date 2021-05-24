@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const production_asset_path_helper = require("./config/view-helpers")(app);
 const router = express.Router();
 const port = 200;
 const db = require("./config/mongoose");
@@ -29,6 +30,10 @@ const flashMiddleware = require("./config/middleware");
 
 const env = require("./config/environment");
 
+//getting our logger for logs
+
+const logger = require("morgan");
+
 //set up chat server to be used by socket io 
 const chatServer = require('http').Server(app);
 const chatSockets = require("./config/chat_socket").chatSockets(chatServer);
@@ -46,13 +51,15 @@ app.set("view engine" , "ejs");
 app.set("views" , "./views");
 
 //use calls 
-app.use(sassMiddelware({
-    src : "./assets/scss",
-    dest:"./assets/css",
-    debug:true,
-    outputStyle: "expanded",
-    prefix: "/css"
-}))
+if(env.name == 'development'){
+    app.use(sassMiddelware({
+        src : "./assets/scss",
+        dest:"./assets/css",
+        debug:true,
+        outputStyle: "expanded",
+        prefix: "/css"
+    }))
+}
 
 app.use(expressLayouts);
 app.use(express.urlencoded());
@@ -60,11 +67,15 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //for reading the assets folder for css and js
-app.use(express.static("assets"));
+app.use(express.static(env.assetPath));
 
 // using static for making the avatar folder availaible to browser
 
 app.use('/uploads' , express.static(__dirname+'/uploads'));
+
+// use the logger for logging
+
+app.use(logger(env.morgan.mode , env.morgan.options));
 
 //Mongo store is used to store the session cookie in the db
 app.use(session({
