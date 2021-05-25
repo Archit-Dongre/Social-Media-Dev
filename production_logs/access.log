@@ -77,3 +77,13 @@
 ::1 - - [21/May/2021:13:25:40 +0000] "GET /users/signIn HTTP/1.1" 200 4300 "http://localhost:200/users/signIn" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
 ::1 - - [21/May/2021:13:25:52 +0000] "POST /users/signIn/create-session HTTP/1.1" 302 70 "http://localhost:200/users/signIn" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
 ::1 - - [21/May/2021:13:25:52 +0000] "GET /users/signIn HTTP/1.1" 304 - "http://localhost:200/users/signIn" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+[0mGET / [32m200[0m 3468.330 ms - 11775[0m
+[0mGET /favicon.ico [33m404[0m 38.437 ms - 150[0m
+[0mGET /users/signIn [32m200[0m 8.333 ms - 3981[0m
+[0mPOST /users/signIn/create-session [36m302[0m 107.625 ms - 46[0m
+[0mGET / [36m304[0m 115.023 ms - -[0m
+[0mGET /users/signIn [36m302[0m 7.378 ms - 72[0m
+[0mGET /users/profile [33m404[0m 7.942 ms - 152[0m
+[0mGET / [32m200[0m 58.291 ms - 14802[0m
+[0mGET /users/signOut [36m302[0m 7.439 ms - 46[0m
+[0mGET / [32m200[0m 18.780 ms - 12052[0m
