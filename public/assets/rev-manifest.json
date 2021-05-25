@@ -1,10 +1,4 @@
 {
-  "css/chatbox.css": "css/chatbox-1b37e44260.css",
-  "css/footer.css": "css/footer-05d13ca5ec.css",
-  "css/header.css": "css/header-9c04b18fe4.css",
-  "css/home.css": "css/home-f5a139c7c7.css",
-  "css/layout.css": "css/layout-04e18eaa6f.css",
-  "css/user.css": "css/user-884f6853a4.css",
-  "js/chatEngine.js": "js/chatEngine-2183456c4d.js",
+  "js/chatEngine.js": "js/chatEngine-5063d2a10d.js",
   "js/scriptOne.js": "js/scriptOne-33caaa5034.js"
 }
