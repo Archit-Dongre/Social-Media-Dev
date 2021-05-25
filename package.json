@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "prod_start": "SET NODE_ENV=production&& nodemon index.js",
+    "prod_start": "NODE_ENV=production&& nodemon index.js",
     "dev_start": "NODE_ENV=development&& nodemon index.js"
   },
   "dependencies": {

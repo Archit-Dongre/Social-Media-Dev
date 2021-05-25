@@ -62,7 +62,7 @@ if(env.name == 'development'){
 }
 
 app.use(expressLayouts);
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 // for reading cookies
 app.use(cookieParser());
 
